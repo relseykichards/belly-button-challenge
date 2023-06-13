@@ -1,10 +1,11 @@
 function init() {
+  // adding initialization of charts with first id 940
   console.log("The Init() function ran");
   var url =
     "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json";
   d3.json(url).then((data) => {
     // console.log(data.names);
-
+    // adding dropdown menu to change the data based on id selected
     let dropdown = d3.select("#selDataset");
     let names = data.names;
 
@@ -18,8 +19,7 @@ function init() {
 }
 
 function optionChanged(newID) {
-  // code that updates graphics
-  // one way is to recall each function
+  // changes each function with the new id selected in the dropdown
 
   createScatter(newID);
   createBar(newID);
@@ -37,7 +37,7 @@ function createScatter(id) {
     let color = sampleData.otu_ids;
     let text = sampleData.otu_labels;
     // console.log(xValues);
-    // code that makes scatter plot at id='bubble'
+    // creates scatter plot at id='bubble'
     let scatterData = [
       {
         x: xValues,
@@ -72,7 +72,7 @@ function createBar(id) {
     let xValueData = sampleData.sample_values;
     let yValueData = sampleData.otu_ids;
     let labelsData = sampleData.otu_labels;
-
+    // getting top 10 bacteria and ordering the results top to bottom
     let xValues = xValueData.slice(0, 10).reverse();
     let yValues = yValueData
       .slice(0, 10)
@@ -80,7 +80,7 @@ function createBar(id) {
       .reverse();
     let labels = labelsData.slice(0, 10).reverse();
     // console.log(yValues);
-
+    // creating the bar chart data at id=bar
     let barData = [
       {
         x: xValues,
@@ -98,7 +98,6 @@ function createBar(id) {
 }
 
 function createSummary(id) {
-  // d3 append + for loop
   var url =
     "https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json";
   d3.json(url).then((data) => {
@@ -111,14 +110,13 @@ function createSummary(id) {
 
     // clear html in metadata
     summary.html("");
-    // Use Object.entries to add each key/value pair to the panel
+    // adding each key/value pair to the panel
     Object.entries(valueData).forEach(([key, value]) => {
       summary.append("li").text(`${key}: ${value}`);
     });
-    //     // checking to see if function is running
+    // checking to see if function is running
     console.log(`This function generates summary info of ${id} `);
   });
 }
-//   // function called, runs init instructions
-//   // runs only on load and refresh of browser page
+
 init();
